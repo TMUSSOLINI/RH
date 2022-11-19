@@ -15,6 +15,7 @@ class EmpresaCreate(CreateView):
         funcionario.save()
         return HttpResponse('OK')
 
+
 class EmpresaEdit(UpdateView):
     model = Empresas
     fields = ['nome']
