@@ -3,6 +3,7 @@
 {% block main %}
     List
     {% for funcionario in object_list %}
-        {{funcionario}}
+        <br>
+        <a href="{% url 'update_funcionario' funcionario.id%}">{{funcionario}}</a>
     {%endfor%}
 {% endblock %}
