@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'documentos',
     'hora_extra',
     'core',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
