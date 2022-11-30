@@ -5,9 +5,11 @@
 <br>
     {% for registro_re in object_list %}
         <a href="{% url 'update_hora_extra' registro_re.id %}">{{ registro_re }}</a>
+        <a href="{% url 'delete_hora_extra' registro_re.id %}">Deletar</a>
         <br>
-
-
     {%endfor%}
-    <br>
+    {% if not object_list %}
+        <h3>Não há horas extras registradas</h3>
+    {% endif %}
+    <a href="{% url 'create_hora_extra' %}" class="btn btn-info">Adicionar Hora</a>
 {% endblock %}
