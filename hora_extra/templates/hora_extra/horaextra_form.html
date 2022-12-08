@@ -14,11 +14,12 @@ edit
   {% if object %}
     <a href="{% url 'delete_hora_extra' object.id %}" class="btn btn-danger">Deletar</a>
   {% endif %}
+  <button onclick="utilizouHoraExtra({{ object.id }})" class="btn btn-info" type="button">Utilizado</button>
 </form>
-<button onclick="utilizouHoraExtra({{ object.id }})" class="btn btn-info">Utilizado</button>
+<p id="mensagem"></p>
 {% endblock %}
 
 {% block static %}
-  <script src="{% static 'js/jquery.js' %}"> </script>
-  <script src="{% static 'js/funcoes_ajax.js' %}"> </script>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/funcoes-ajax.js' %}"></script>
 {% endblock %}

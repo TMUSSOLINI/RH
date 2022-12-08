@@ -46,4 +46,7 @@ class HoraExtraNovo(CreateView):
 class UtilizouHoraExtra(View):
     def post(self, *args, **kwargs):
         response = json.dumps({'mensagem': 'requisição executada'})
+        registro_hora_extra = HoraExtra.objects.get(id=kwargs['pk'])
+        registro_hora_extra.utilizada = True
+        registro_hora_extra.save()
         return HttpResponse(response, content_type='application/json')

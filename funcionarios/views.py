@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponse, FileResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+import io
+from reportlab.pdfgen import canvas
+
 from .models import Funcionario
 
 
@@ -33,3 +37,30 @@ class FuncionarioNovo(CreateView):
         funcionario.user = User.objects.create(username=username)
         funcionario.save()
         return super(FuncionarioNovo, self).form_valid(form)
+
+def relatorio_funcionario(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+
+    p.drawString(200, 810, 'Relatorio de funcionarios')
+
+    # palavras = ['palavra1', 'palavra2', 'palavra3']
+    funcionarios = Funcionario.objects.filter(empresa= request.user.funcionario.empresa)
+
+    texto = 'Nome: %s  '
+
+    y = 750
+    for funcionario in funcionarios:
+        p.drawString(10, y, texto % (funcionario.nome))
+        y -= 20
+
+    p.showPage()
+    p.save()
+
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
