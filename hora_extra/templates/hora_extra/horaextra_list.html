@@ -12,4 +12,6 @@
         <h3>Não há horas extras registradas</h3>
     {% endif %}
     <a href="{% url 'create_hora_extra' %}" class="btn btn-info">Adicionar Hora</a>
+    <a href="{% url 'exportar_csv' %}" class="btn btn-info">Exporta CSV</a>
+    <a href="{% url 'exportar_excel' %}" class="btn btn-info">Exporta Excel</a>
 {% endblock %}
