@@ -12,13 +12,15 @@ class Funcionario(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     departamentos = models.ManyToManyField(Departamentos)
     empresa = models.ForeignKey(Empresas, on_delete=models.PROTECT, null=True, blank=True)
+    imagem = models.ImageField()
 
     def get_absolute_url(self):
         return reverse('list_funcionarios')
 
     @property
     def total_horas_extra(self):
-        return self.horaextra_set.all().aggregate(Sum('horas'))['horas__sum']
+        total = self.horaextra_set.all().aggregate(Sum('horas'))['horas__sum']
+        return total or 0
 
     def __str__(self):
         return self.nome
